@@ -1,3 +1,4 @@
+//版本对比
 export function compareVersion(s1, s2) {
     let v1 = s1.split('.');
     let v2 = s2.split('.');
@@ -20,6 +21,7 @@ export function compareVersion(s1, s2) {
     }
     return 0;
 }
+//是否iphone
 export function setIsiPhoneXSeries(h, w) {
     var screen = [{ h: 812, w: 375 }, { h: 896, w: 414 }];
     for (let n of screen) {

@@ -2,34 +2,41 @@ import { WeiXin } from "./SDK/WeiXin";
 import { Model2D } from "./Model2D/Model";
 export var Util;
 (function (Util) {
+    // 新建vector4实例
     function v4(x, y, z, w) {
         return new Laya.Vector4(x, y, z, w);
     }
     Util.v4 = v4;
+    // 新建vector3实例
     function v3(x, y, z) {
         return new Laya.Vector3(x, y, z);
     }
     Util.v3 = v3;
+    // 新建vector2实例
     function v2(x, y) {
         return new Laya.Vector2(x, y);
     }
     Util.v2 = v2;
+    //vector3矢量相减
     function subv3(v1, v2) {
         let t = v3(0, 0, 0);
         Laya.Vector3.subtract(v1, v2, t);
         return t;
     }
     Util.subv3 = subv3;
+    // 生成随机数
     function random(min, max) {
         return min + Math.random() * (max - min);
     }
     Util.random = random;
+    //添加子节点
     function add_childs(node, childs) {
         for (let c of childs) {
             node.addChild(c);
         }
     }
     Util.add_childs = add_childs;
+    //隐藏子节点
     function deactive_children(node) {
         for (let i = 0; i < node.numChildren; i++) {
             let c = node.getChildAt(i);
@@ -37,6 +44,7 @@ export var Util;
         }
     }
     Util.deactive_children = deactive_children;
+    //二维矢量生成角度 弧度制
     function get_angle(xx, yy) {
         var obl = Math.sqrt(Math.pow(xx, 2) + Math.pow(yy, 2));
         if (obl == 0)
@@ -45,6 +53,7 @@ export var Util;
         return rad * 180 / Math.PI;
     }
     Util.get_angle = get_angle;
+    //获取平均矢量值
     function get_average_v3(v3_arr) {
         let x = 0, y = 0, z = 0;
         let size = v3_arr.length;
@@ -56,6 +65,7 @@ export var Util;
         return v3(x / size, y / size, z / size);
     }
     Util.get_average_v3 = get_average_v3;
+    //事件分发器
     class EventDispatcher {
         constructor() {
             this.nodeList = [];
@@ -86,6 +96,7 @@ export var Util;
         ;
     }
     Util.event_dispatcher = new EventDispatcher();
+    //节点查找
     function find(node, name) {
         let ns = name.split('/');
         let nd = null;
@@ -99,16 +110,19 @@ export var Util;
         return nd;
     }
     Util.find = find;
+    //隐藏节点
     function deactive_node(node) {
         node.visible = false;
         node.active = false;
     }
     Util.deactive_node = deactive_node;
+    //显示节点
     function active_node(node) {
         node.visible = true;
         node.active = true;
     }
     Util.active_node = active_node;
+    //夹钳函数
     function clamp(n, min, max) {
         if (n > max) {
             return max;
@@ -122,6 +136,7 @@ export var Util;
     // export function play_sound(url){
     //     Laya.timer.callLater(null,()=>Laya.SoundManager.playSound(url,1));
     // }
+    //判断是否微信环境
     function is_weixin() {
         return typeof wx != "undefined";
     }
@@ -130,6 +145,7 @@ export var Util;
         return typeof qg != "undefined";
     }
     Util.is_qg = is_qg;
+    //获取子节点
     function get_children(node) {
         let length = node.numChildren;
         let children = [];
@@ -140,6 +156,7 @@ export var Util;
         return children;
     }
     Util.get_children = get_children;
+    //播放音效
     function play_sound(url, volume = 1) {
         if (!is_weixin()) {
             Laya.SoundManager.playSound(url, 1);
@@ -162,6 +179,7 @@ export var Util;
         }
     }
     Util.play_sound = play_sound;
+    //播放背景音乐
     let _bgm_sound = null;
     function play_music(url, volume = 1) {
         if (!is_weixin()) {
@@ -184,6 +202,7 @@ export var Util;
         }
     }
     Util.play_music = play_music;
+    //停止音乐
     function stop_music() {
         if (!is_weixin()) {
             Laya.SoundManager.stopMusic();
@@ -199,6 +218,7 @@ export var Util;
         }
     }
     Util.play_sound_for_weixin = play_sound_for_weixin;
+    //数字转文字
     function convert_number_to_string(points, precise = 2) {
         if (points < Math.pow(10, 3))
             return points + '';
@@ -224,6 +244,7 @@ export var Util;
             return (points / Math.pow(10, 30)).toFixed(precise) + 'bb';
     }
     Util.convert_number_to_string = convert_number_to_string;
+    //get 请求
     function http_get(url, cb, timeout = 10000) {
         const xhr = new XMLHttpRequest();
         let time = false;
@@ -250,6 +271,7 @@ export var Util;
         xhr.send(null);
     }
     Util.http_get = http_get;
+    //从数组中随机选取
     function get_random_from_array(a) {
         if (a.length < 0)
             return null;
@@ -257,6 +279,7 @@ export var Util;
         return a[id];
     }
     Util.get_random_from_array = get_random_from_array;
+    //显示提示
     function show_Tip(node, msg) {
         let sp = Model2D.instantiate_sprite_with_anchor('spear_io_public/ui_public_bg_blue.jpg', 0.5, 0.5, v2(578, 126));
         sp.alpha = 0.8;
@@ -267,6 +290,7 @@ export var Util;
         Laya.timer.frameOnce(60, null, () => { sp.removeSelf(), txt.removeSelf(), sp.destroy(), txt.destroy(); });
     }
     Util.show_Tip = show_Tip;
+    //显示广告
     function show_video(layer, btn, Variable) {
         // get_bonus_time++;
         share_app(layer, Variable.share_data.cloud_share_msg, "", Variable.share_data.share_enabled, btn);
@@ -299,6 +323,7 @@ export var Util;
     }
     Util.show_video = show_video;
     // let get_bonus_time = 0;
+    //分享
     function share_app(layer, cloud_share_msg, city = "", is_share_enabled, btn) {
         if (!btn.active)
             return;
@@ -361,6 +386,7 @@ export var Util;
         return v3(0, 0, 0);
     }
     Util.get_color_filter_color = get_color_filter_color;
+    //设置图片颜色
     function set_sprite_color(sp, color) {
         var color_mat = [
             color.x, 0, 0, 0, 0,
@@ -373,6 +399,7 @@ export var Util;
         return filter;
     }
     Util.set_sprite_color = set_sprite_color;
+    //生成网格位置
     function generate_grid_pos(coloum, row, width, height) {
         let pos = [];
         for (let i = 0; i < row * coloum; i++) {
@@ -384,6 +411,7 @@ export var Util;
         return pos;
     }
     Util.generate_grid_pos = generate_grid_pos;
+    //生成贝塞尔曲线点
     function generate_bezier_curve(start_pos, mid_pos, end_pos, size) {
         // let p = start_pos;
         let arr = [];
@@ -400,6 +428,7 @@ export var Util;
         // return arr;
     }
     Util.generate_bezier_curve = generate_bezier_curve;
+    //平均化贝塞尔曲线
     function average_bezier_curve(points) {
         let lines = new Array();
         function calc_line_length(lines) {
@@ -458,6 +487,7 @@ export var Util;
         return averaged_points;
     }
     Util.average_bezier_curve = average_bezier_curve;
+    //显示获得金币
     function show_effect_coin_add(coins, music, world_pos_x, world_pos_y) {
         for (let i = 0; i < coins.numChildren; i++) {
             let coin = coins.getChildAt(i);

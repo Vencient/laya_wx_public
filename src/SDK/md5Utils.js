@@ -1,6 +1,7 @@
 /**
  * Created by Administrator on 14-8-21.
  */
+//md5库
 /*
  * Add integers, wrapping at 2^32. This uses 16-bit operations internally
  * to work around bugs in some JS interpreters.

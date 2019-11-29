@@ -23,6 +23,7 @@ export function catchWxNotDefined(obj) {
         };
     };
 }
+//微信接口适配器
 class _weixin {
     constructor() {
         this.cloud_config_url = "https://xiazai.qi-guo.cn/spear_io_3d/config_wx.json";

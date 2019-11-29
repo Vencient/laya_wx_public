@@ -34,6 +34,7 @@ class SDKManager {
             this.YouziType = WeiXin.YouziType;
         }
     }
+    //新建banner在底部
     instantiateBannerAtBottomCenter(bannerAdsID) {
         if (this.sdk) {
             return this.sdk.instantiateBannerAtBottomCenter(bannerAdsID);
@@ -42,14 +43,17 @@ class SDKManager {
             return WeiXin.instantiateBannerAtBottomCenter(bannerAdsID);
         }
     }
+    //新建视频组件
     instantiateRewardedVideo(_adunitId, success, error, failed) {
         if (this.sdk) {
             return this.sdk.instantiateRewardedVideo(_adunitId, success, error, failed);
         }
     }
+    //短震动
     vibrateShort() {
         this.sdk && this.sdk.vibrateShort();
     }
+    //初始化youzi
     initYouzi() {
         if (this.sdk) {
             this.sdk.initYouzi(this.sdk.YouziType.appId, this.sdk.YouziType.resVersion, this.sdk.YouziType.miniGamePlatType);

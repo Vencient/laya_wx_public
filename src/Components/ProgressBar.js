@@ -2,6 +2,7 @@ import { Util } from "../Util";
 const SpeedAdd = 0.2;
 const SpeedSub = 1 / 3;
 const Chance = 0.6;
+//进度条组件
 export default class ProgressBar extends Laya.Script {
     constructor() {
         super(...arguments);
@@ -26,6 +27,7 @@ export default class ProgressBar extends Laya.Script {
         let radius = 0;
         let mask_width = this.origin_width * progress;
         let mask_height = this.origin_height;
+        //设置遮罩
         this.mask.graphics.drawPath(0, 0, [
             ["moveTo", radius, 0],
             ["lineTo", mask_width - radius, 0],

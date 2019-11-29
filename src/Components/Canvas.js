@@ -1,4 +1,5 @@
 export default class Canvas extends Laya.Script {
+    //实时更新大小的适配器
     onUpdate() {
         let sp = this.owner;
         if (!sp)
